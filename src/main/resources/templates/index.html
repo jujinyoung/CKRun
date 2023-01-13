@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CKRUN</title>
+    <link rel="shortcut icon" href="../img/fabicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
+</head>
+<body>
+
+    <section class="intro">
+        <div class="intro__dark">
+            <div class="intro__type">
+                <div><span>포트폴리오목적 프로젝트입니다.</span></div>
+            </div>
+        </div>
+        <div class="intro__tilt"></div>
+        <div class="intro__tilt--flip"></div>
+    </section>
+
+<!--    <div th:replace="~{templates/fragment/header :: header}"></div>-->
+    <header class="header" th:fragment="header">
+        <h1>
+            <a class="header__homelink" href="index.html">
+                <img class="header__logo" th:src="@{/img/logo.png}" src="../img/logo.png" alt="홈으로">
+            </a>
+        </h1>
+        <input class="header__menu-btn" type="checkbox">
+        <nav class="header__nav">
+            <ul>
+                <li class="header__nav-item">
+                    <a href="login.html">로그인</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="#about">쿠키목록</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="">공지사항</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="">검색하기</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="#contact">문의하기</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about" class="section">
+
+            <header class="section__header">
+                <strong class="section__tag">
+                    about
+                </strong>
+                <h1 class="section__title">쿠키런 오븐브레이크</h1>
+            </header>
+
+            <div class="about">
+
+                <div class="about__card">
+                    <img class="about__icon" src="../img/cookie.png" alt="">
+                    <h2 class="about__title _1">쿠키목록</h2>
+                    <p class="about__text">쿠키런 오븐브레이크에 등장하는 <br>쿠키들을 살펴보세요!
+                    </p>
+                </div>
+
+                <div class="about__card">
+                    <img class="about__icon" src="../img/notice.png" alt="">
+                    <h2 class="about__title _2">공지사항</h2>
+                    <p class="about__text">업데이트 소식을 <br>편리하게 찾아보세요!
+                    </p>
+                </div>
+
+                <div class="about__card">
+                    <img class="about__icon" src="../img/search.png" alt="">
+                    <h2 class="about__title _3">검색하기</h2>
+                    <p class="about__text">검색을 통해 원하는 <br>쿠키를 찾아보세요!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="comment" class="section">
+            <header class="section__header">
+                <strong class="section__tag">
+                    comment
+                </strong>
+                <h1 class="section__title">
+                    최근 댓글
+                </h1>
+            </header>
+            <div>
+                댓글 작업 후 만들어야함
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <header class="section__header">
+                <strong class="section__tag">
+                    contact
+                </strong>
+                <h1 class="section__title">
+                    문의하기
+                </h1>
+            </header>
+            <div class="contact">
+                <div class="contact__tab">
+                    <input name="contact" type="radio" id="ct_1" checked>
+                    <label for="ct_1" class="sr-only">연락처</label>
+                    <input name="contact" type="radio" id="ct_2">
+                    <label for="ct_2" class="sr-only">메시지</label>
+                    <div class="contact__slides">
+                        <div class="contact__slide-con">
+                            <div class="contact__slide">
+                                <address>
+                                    <table class="contact__contacts">
+                                        <caption class="sr-only">연락처 목록</caption>
+                                        <tr>
+                                            <th>깃허브</th>
+                                            <td>
+                                                <a href="https://github.com/jujinyoung/CKRun" target="_blank" alt="새 창에서 열기">
+                                                    깃허브 바로가기
+                                                </a>
+                                            </td>
+                                        </tr>
+<!--                                        <tr>-->
+<!--                                            <th>웹사이트</th>-->
+<!--                                            <td>-->
+<!--                                                <a href="https://www.yalco.kr" target="_blank" alt="새 창에서 열기">-->
+<!--                                                    https://www.yalco.kr-->
+<!--                                                </a>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+                                        <tr>
+                                            <th>이메일</th>
+                                            <td>
+                                                <a href="mailto:jujinyoung1838@naver.com">
+                                                    jujinyoung1838@naver.com
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </address>
+                            </div>
+                            <div class="contact__slide">
+                                <form action="#" method="get">
+                                    <div class="contact__leave">
+                                        <textarea name="message" placeholder="메시지를 입력하세요." required></textarea>
+                                        <div>
+                                            <input name="email" type="email" placeholder="메일주소를 입력하세요." required>
+                                            <button type="submit">남기기</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h1 class="sr-only">Copyright</h1>
+        <p>프로젝트 기간</p>
+        <p>23.01.12 ~</p>
+    </footer>
+</body>
+</html>

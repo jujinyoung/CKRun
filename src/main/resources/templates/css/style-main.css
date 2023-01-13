@@ -1,0 +1,288 @@
+.intro {
+    position: relative;
+    background-image: url(../../img/intro.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+}
+
+/* 배경 이미지 반투명 검정으로 가리기 */
+.intro__dark{
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.67);
+}
+
+/* 상단 텍스트 */
+.intro__type{
+    display: inline-flex;
+    gap: 0.32em;
+    font-family: var(--font-code);
+    font-size: 2.8em;
+    font-weight: bold;
+    color: white;
+    margin-top: 172px;
+    align-items: center;
+}
+
+.intro__type span{
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0.25em;
+}
+
+
+/* 하단의 빨강 도형 */
+[class^="intro__tilt"]{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 25%;
+    background-color: var(--color-main);
+    clip-path: polygon(100% 90%, 100% 100%, 0 100%, 0 0);
+}
+.intro__tilt--flip{
+    clip-path: polygon(100% 0, 100% 100%,0 100%, 0 90%);
+    opacity: 0.5;
+}
+
+/* 메인 content */
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.section{
+    padding: 64px 16px;
+    text-align: center;
+}
+
+/* Tag */
+.section__tag{
+    font-size: var(--font-size-tag);
+    color: var(--color-sub);
+}
+/* 제목 */
+.section__title{
+    font-size: var(--font-size-title);
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+/* main 목차*/
+#about{
+    background-color: var(--color-light-bg);
+    grid-column: 1/-1;
+}
+/* 카드레이아웃 */
+.about{
+    display: inline-flex;
+    gap: 1em;
+    margin-top: 48px;
+}
+/* 카드와 아이콘 */
+.about__card{
+    padding: 48px;
+    text-align: center;
+    color: white;
+    background-color: var(--color-dark);
+    border-radius: 12px;
+    position: relative;
+    width: 320px;
+    cursor: pointer;
+    transition: all 350ms;
+}
+.about__icon{
+    width: 120px;
+    height: 120px;
+    opacity: 0.25;
+}
+/* 카드 안의 텍스트 */
+.about__title{
+    margin-top: 0.6em;
+    font-size: var(--font-size-larger);
+    font-weight: bold;
+}
+.about__title._1{
+    color: #FFB974;
+}
+.about__title._2{
+    color: #6BB0F3;
+}
+.about__title._3{
+    color: #FFBDCE;
+}
+.about__text{
+    margin-top: 0.8em;
+    font-size: var(--font-size-text);
+}
+
+/* 마우스 오버시 해당 카드 외 축소 */
+.about:hover .about__card:not(:hover){
+    transform: scale(0.9);
+}
+/* 흐림 필터링을 위한 덮개 */
+.about:hover .about__card:not(:hover)::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    /* 오버된 카드 */
+
+}
+.about__card:hover{
+    transform: scale(1.04);
+}
+.about__card:hover .about__icon{
+    opacity: 1;
+}
+
+/* comment */
+#comment {
+    padding-left: 0;
+    padding-right: 0;
+    background-color: var(--color-light-bg);
+    grid-column: 1 / -1;
+}
+
+
+
+
+/* 문의하기 */
+#contact {
+    padding-left: 0;
+    padding-right: 0;
+    background-color: var(--color-light-bg);
+    grid-column: 1 / -1;
+}
+.contact {
+    margin-top: 3em;
+}
+
+.contact__tab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: var(--font-size-larger);
+}
+
+/* 라디오 버튼 커스터마이즈 */
+input[type=radio] {
+    all: unset;
+    display: inline-block;
+    padding: 0.8em 4em;
+    background-color: white;
+    cursor: pointer;
+}
+input[type=radio]:checked {
+    color: white;
+    background-color: var(--color-main);
+}
+#ct_1 { border-radius: 12px 0 0 12px; }
+#ct_1::after { content: '연락처 보기'; }
+#ct_2 { border-radius: 0 12px 12px 0; }
+#ct_2::after { content: '메시지 남기기'; }
+
+.contact__slides {
+    margin: 1.6em 0;
+    width: 100vw;
+    overflow: hidden;
+}
+.contact__slide-con {
+    display: flex;
+    width: 200vw;
+    transition: margin-left 500ms;
+}
+.contact__slide {
+    width: 100vw;
+}
+#ct_1:checked ~ .contact__slides .contact__slide-con {
+    margin-left: 0;
+}
+#ct_2:checked ~ .contact__slides .contact__slide-con {
+    margin-left: -100vw;
+}
+
+.contact__contacts {
+    margin: 0 auto;
+    text-align: left;
+    color: var(--color-text);
+    border-spacing: 3em 1em;
+}
+.contact__contacts th {
+    padding-right: 3em;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: right;
+    color: var(--color-dark);
+    border-right: 4px solid var(--color-light-bd);
+}
+.contact__contacts a:hover {
+    color: var(--color-emph);
+    text-decoration: underline;
+}
+.contact__contacts img {
+    margin-right: 0.1em;
+    width: 32px;
+    vertical-align: middle;
+}
+
+.contact__leave {
+    display: inline-flex;
+    margin-top: 1em;
+    gap: 8px;
+}
+.contact__leave textarea,
+.contact__leave input[type=email] {
+    margin: 0;
+    font-size: var(--font-size-text);
+    border: 2px solid var(--color-light-bd);
+    width: 360px;
+}
+.contact__leave textarea::placeholder,
+.contact__leave input[type=email]::placeholder {
+    color: var(--color-lighter);
+}
+
+/* 텍스트 인풋의 경우 focus-visible이 focus를 override */
+.contact__leave textarea:focus-visible,
+.contact__leave input[type=email]:focus-visible {
+    border: 2px solid var(--color-sub);
+    outline: none;
+}
+.contact__leave div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.contact__leave textarea {
+    resize: none;
+    padding: 0.6em;
+}
+.contact__leave input[type=email] {
+    padding: 0 0.6em;
+    height: 48px;
+    line-height: 48px;
+}
+.contact__leave button {
+    all: unset;
+    height: 64px;
+    line-height: 64px;
+    color: white;
+    background-color: var(--color-sub);
+    cursor: pointer;
+    transition: all 350ms;
+}
+.contact__leave button:hover {
+    opacity: 0.8;
+}
+.contact__leave button:focus-visible {
+    outline: 4px solid var(--color-sub);
+}
