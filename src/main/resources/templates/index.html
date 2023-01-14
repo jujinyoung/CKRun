@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>CKRUN</title>
-    <link rel="shortcut icon" href="../img/fabicon.png" type="image/x-icon">
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
+    <link rel="shortcut icon" href="../static/img/fabicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css" type="text/css">
 </head>
 <body>
 
@@ -22,14 +22,14 @@
     <header class="header" th:fragment="header">
         <h1>
             <a class="header__homelink" href="index.html">
-                <img class="header__logo" th:src="@{/img/logo.png}" src="../img/logo.png" alt="홈으로">
+                <img class="header__logo" th:src="@{/img/logo.png}" src="../static/img/logo.png" alt="홈으로">
             </a>
         </h1>
         <input class="header__menu-btn" type="checkbox">
         <nav class="header__nav">
             <ul>
                 <li class="header__nav-item">
-                    <a href="login.html">로그인</a>
+                    <a href="member/login">로그인</a>
                 </li>
                 <li class="header__nav-item">
                     <a href="#about">쿠키목록</a>
@@ -60,21 +60,21 @@
             <div class="about">
 
                 <div class="about__card">
-                    <img class="about__icon" src="../img/cookie.png" alt="">
+                    <img class="about__icon" th:src="@{/img/cookie.png}" src="../static/img/cookie.png" alt="">
                     <h2 class="about__title _1">쿠키목록</h2>
                     <p class="about__text">쿠키런 오븐브레이크에 등장하는 <br>쿠키들을 살펴보세요!
                     </p>
                 </div>
 
                 <div class="about__card">
-                    <img class="about__icon" src="../img/notice.png" alt="">
+                    <img class="about__icon" th:src="@{/img/notice.png}" src="../static/img/notice.png" alt="">
                     <h2 class="about__title _2">공지사항</h2>
                     <p class="about__text">업데이트 소식을 <br>편리하게 찾아보세요!
                     </p>
                 </div>
 
                 <div class="about__card">
-                    <img class="about__icon" src="../img/search.png" alt="">
+                    <img class="about__icon" th:src="@{/img/search.png}" src="../static/img/search.png" alt="">
                     <h2 class="about__title _3">검색하기</h2>
                     <p class="about__text">검색을 통해 원하는 <br>쿠키를 찾아보세요!</p>
                 </div>

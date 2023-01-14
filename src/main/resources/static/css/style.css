@@ -1,6 +1,7 @@
 @import url(style-main.css);
 @import url(style-header.css);
 @import url(style-footer.css);
+@import url(app.css);
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
@@ -8,6 +9,7 @@
 /* ===== 변수 구간 ===== */
 :root {
     --color-main: #FF4200;
+    --color-main-hover: #ef572e;
     --color-sub: #00A200;
     --color-dark: #2F4858;
     --color-emph: #F10F5F;
