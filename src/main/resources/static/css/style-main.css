@@ -148,7 +148,7 @@ main{
 #comment {
     padding-left: 0;
     padding-right: 0;
-    background-color: var(--color-light-bg);
+    background-color: var(--color-light-bd);
     grid-column: 1 / -1;
 }
 

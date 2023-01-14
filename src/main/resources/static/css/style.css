@@ -16,7 +16,7 @@
     --color-text: #281812;
     --color-lighter: #DC9C86;
     --color-light-bd: #FFE6D6;
-    --color-light-bg: #FFF5ED;
+    --color-light-bg: #ffc5af;
 
     --font-code: 'Nanum Gothic Coding', monospace;;
 
@@ -36,7 +36,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 
     /* 개발용 설정 */
-    min-height: 300vh;
+    /*min-height: 300vh;*/
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -87,4 +87,13 @@ address { font-style: inherit; }
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
+}
+
+.bg{
+    background-color: var(--color-light-bg);
+}
+
+.pd-5{
+    padding-bottom: 3rem!important;
+    padding-top: 3rem!important;
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CKRUN</title>
-    <link rel="shortcut icon" href="../static/img/fabicon.png" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/img/fabicon.png}" href="../static/img/fabicon.png" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css" type="text/css">
 </head>
 <body>
@@ -18,34 +18,7 @@
         <div class="intro__tilt--flip"></div>
     </section>
 
-<!--    <div th:replace="~{templates/fragment/header :: header}"></div>-->
-    <header class="header" th:fragment="header">
-        <h1>
-            <a class="header__homelink" href="index.html">
-                <img class="header__logo" th:src="@{/img/logo.png}" src="../static/img/logo.png" alt="홈으로">
-            </a>
-        </h1>
-        <input class="header__menu-btn" type="checkbox">
-        <nav class="header__nav">
-            <ul>
-                <li class="header__nav-item">
-                    <a href="member/login">로그인</a>
-                </li>
-                <li class="header__nav-item">
-                    <a href="#about">쿠키목록</a>
-                </li>
-                <li class="header__nav-item">
-                    <a href="">공지사항</a>
-                </li>
-                <li class="header__nav-item">
-                    <a href="">검색하기</a>
-                </li>
-                <li class="header__nav-item">
-                    <a href="#contact">문의하기</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    <div th:replace="~{fragment/header :: header}"></div>
 
     <main>
         <section id="about" class="section">
@@ -161,10 +134,6 @@
         </section>
     </main>
 
-    <footer>
-        <h1 class="sr-only">Copyright</h1>
-        <p>프로젝트 기간</p>
-        <p>23.01.12 ~</p>
-    </footer>
+    <div th:replace="~{fragment/footer :: footer}"></div>
 </body>
 </html>
