@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CKRUN</title>
+    <link rel="shortcut icon" th:href="@{/img/fabicon.png}" href="../../static/img/fabicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <style>
+        *, :after, :before {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragment/header :: header}"></div>
+
+<div class="wrapper my-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center"><h3 class="section__title">쿠키런 오븐브레이크 회원가입</h3></div>
+
+                <div class="card-body">
+                    <form method="POST" th:action action="login.html">
+                        <input type="hidden" name="userID" value="0">
+                        <div class="form-group row">
+                            <label for="nickname" class="col-md-4 col-form-label text-md-right">닉네임</label>
+
+                            <div class="col-md-6">
+                                <input id="nickname" type="text" class="form-control" name="nickname" value="" required autofocus>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">이메일</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="" required>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">비밀번호</label>
+
+                            <div class="col-md-6">
+                                <input th:if="${success != null}" id="password" type="password" class="form-control is-invalid" name="password" required>
+                                <input th:unless="${success != null}" id="password" type="password" class="form-control" name="password" required>
+                                <span th:if="${success != null}" class="invalid-feedback" role="alert">
+                                    <strong>[[${success}]]</strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">비밀번호 확인</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="passwordCheck" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    회원가입
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragment/footer :: footer}"></div>
+</body>
+</html>

@@ -24,6 +24,12 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//OAuth2 추가
+//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	//jdbc 연동
+	implementation 'com.oracle.ojdbc:ojdbc8:19.3.0.0'
+	//MyBatis 추가
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 }
 
 tasks.named('test') {

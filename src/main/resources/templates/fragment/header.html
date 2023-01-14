@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="header" th:fragment="header">
+  <h1>
+    <a class="header__homelink" th:href="@{/}" href="#">
+      <img class="header__logo"  th:src="@{/img/logo.png}" src="../../static/img/logo.png" alt="홈으로">
+    </a>
+  </h1>
+  <input class="header__menu-btn" type="checkbox">
+  <nav class="header__nav">
+    <ul>
+      <li class="header__nav-item">
+        <a th:href="@{/member/login}">로그인</a>
+      </li>
+      <li class="header__nav-item">
+        <a href="">쿠키목록</a>
+      </li>
+      <li class="header__nav-item">
+        <a href="">공지사항</a>
+      </li>
+      <li class="header__nav-item">
+        <a href="">검색하기</a>
+      </li>
+      <li class="header__nav-item">
+        <a th:href="@{/#contact}">문의하기</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+</body>
+</html>
