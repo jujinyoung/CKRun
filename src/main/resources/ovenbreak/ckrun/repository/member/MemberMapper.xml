@@ -5,12 +5,16 @@
 <mapper namespace="ovenbreak.ckrun.repository.member.MemberMapper">
     <insert id="save">
         INSERT INTO ck_member
-        VALUES (ck_member_seq.nextval, #{nickname}, #{email}, #{password})
+        VALUES (#{email}, #{nickname}, #{password}, #{role})
     </insert>
 
     <select id="login" resultType="Member">
         SELECT *
         FROM ck_member
         WHERE email = #{email} and password = #{password}
+    </select>
+
+    <select id="findByEmail" resultType="Member">
+        SELECT * FROM ck_member WHERE email = #{email}
     </select>
 </mapper>

@@ -97,3 +97,24 @@ address { font-style: inherit; }
     padding-bottom: 3rem!important;
     padding-top: 3rem!important;
 }
+
+.sns-login{
+    color: var(--color-dark);
+    margin-left: 30%;
+}
+
+.btn-signup-google{
+    background-color: var(--color-light-bg);
+}
+
+.btn-signup-google:before{
+    display: block;
+    content: '';
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    margin-top: -10px;
+    background: url(../img/google.png) no-repeat center;
+}

@@ -11,7 +11,12 @@
   <nav class="header__nav">
     <ul>
       <li class="header__nav-item">
-        <a th:href="@{/member/login}">로그인</a>
+        <th:block th:if="${userName == null}">
+          <a th:href="@{/member/login}">로그인</a>
+        </th:block>
+        <th:block th:if="${userName != null}">
+          <a href="/logout">로그아웃</a>
+        </th:block>
       </li>
       <li class="header__nav-item">
         <a href="">쿠키목록</a>
