@@ -1,27 +1,33 @@
 package ovenbreak.ckrun.domain.member;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @ToString
 public class Member {
-
-    private long userID;
-    private String nickname;
     private String email;
+    private String nickname;
     private String password;
+    private Role role;
 
     private String passwordCheck;
 
-    public Member(long userID, String nickname, String email, String password) {
-        this.userID = userID;
-        this.nickname = nickname;
+    public Member() {
+    }
+
+    @Builder
+    public Member(String email, String nickname,Role role) {
         this.email = email;
+        this.nickname = nickname;
+        this.role = role;
+    }
+
+    public Member(String email, String nickname, String password, Role role) {
+        this.email = email;
+        this.nickname = nickname;
         this.password = password;
+        this.role = role;
     }
 
     public boolean pwdCheck(){
@@ -29,5 +35,9 @@ public class Member {
             return true;
         }
         return false;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 }

@@ -26,7 +26,7 @@ public class MemberController {
                         @RequestParam String password){
 
         memberService.login(email, password);
-        return "/index";
+        return "redirect:/index";
     }
 
     @GetMapping("/register")

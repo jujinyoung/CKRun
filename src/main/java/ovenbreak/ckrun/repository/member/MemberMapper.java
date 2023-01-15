@@ -10,4 +10,8 @@ public interface MemberMapper {
     void save(Member member);
 
     Member login(@Param("email") String email, @Param("password") String password);
+
+    Member findByEmail(String email);
+
+    Member findByNickname(String nickname);
 }
