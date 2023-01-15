@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CKRUN</title>
+    <link rel="shortcut icon" th:href="@{/img/fabicon.png}" href="../../static/img/fabicon.png" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css" type="text/css">
+</head>
+<body>
+
+<div th:replace="~{fragment/header :: header}"></div>
+
+<div align="center" style=" height: auto !important;">
+    <div style="min-width: 735px; overflow: hidden; height: auto !important;">
+        <div class="row mt-4 mb-5 pl-0 container" style="min-width:1130px;">
+            <div class="col-8 pl-3 pr-2">
+                <div class="character-info" th:each="cookies : ${cookiesInfoList}">
+                    <table class="table table-sm table-borderless">
+                        <tbody>
+                        <tr>
+                            <td class="align-top thumb-wrapper" rowspan="5">
+                                <img th:src="@{/img/cookies/} + ${cookies.cookie.ckImage}" th:alt="${cookies.cookie.name}"
+                                     src="../../static/img/cookies/adventurer.png" width="105" height="105" alt="탐험가맛 쿠키">
+                                <div class="text-center damage-wrapper mt-1" style="width: 105px">
+                                    <span th:text="${cookies.cookie.name}">탐험가맛쿠키</span>
+                                </div>
+                            </td>
+                            <td colspan="3" class="text-left font-weight-bold name-info">
+                                <a href="javascript:;">
+                                    <span class="name-wrapper">
+                                        <span th:text="${cookies.cookie.name}"
+                                              class="name level-4">탐험가맛 쿠키</span>
+                                        <span class="dash"> - </span>
+                                        <span class="level level-4">
+                                            <span th:text="${cookies.cookie.rank}"
+                                                  class="first">EPIC</span>
+                                        </span>
+                                    </span>
+                                </a>
+                            </td>
+                            <td class="text-secondary text-right"><th:block th:text="${cookies.cookie.edate}">" Update 날짜 적기 "</th:block></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <th:block th:text="${cookies.cookie.skill}">
+                                    일정시간마다 유적을 발견한다. 유적 안에서 밧줄 젤리를 먹으면 로프 액션을 한다. 로프액션을 하는 동안 강한
+                                    자력이 발생하며, 보석 젤리를 획들할 수 있다. 레벨업할수록 보석 젤리 점수가 증가한다.(유적 안에서는 3단
+                                    점프를 할 수 있다.)
+                                </th:block>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <th:block th:each="tag : ${cookies.tags}">
+                                    <a class="mr-1" href="javascript:;">#[[${tag.tagName}]]</a>
+                                </th:block>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragment/footer :: footer}"></div>
+
+</body>
+</html>
