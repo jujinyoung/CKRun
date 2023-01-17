@@ -23,7 +23,7 @@ public class CookiesController {
     private final CookiesService cookiesService;
     private final HttpSession httpSession;
 
-    @GetMapping("/list")
+    @GetMapping
     public String list(Model model){
         //세션 처리
         SessionUser user = (SessionUser) httpSession.getAttribute("user");

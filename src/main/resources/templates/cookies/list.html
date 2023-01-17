@@ -20,7 +20,7 @@
                         <tr>
                             <td class="align-top thumb-wrapper" rowspan="5">
                                 <img th:src="@{/img/cookies/} + ${cookies.cookie.ckImage}" th:alt="${cookies.cookie.name}"
-                                     src="../../static/img/cookies/adventurer.png" width="105" height="105" alt="탐험가맛 쿠키">
+                                     src="../../static/img/cookies/GingerBrave.png" width="105" height="105" alt="탐험가맛 쿠키">
                                 <div class="text-center damage-wrapper mt-1" style="width: 105px">
                                     <span th:text="${cookies.cookie.name}">탐험가맛쿠키</span>
                                 </div>
@@ -35,10 +35,14 @@
                                             <span th:text="${cookies.cookie.rank}"
                                                   class="first">EPIC</span>
                                         </span>
+                                        <span class="level level-comment">
+                                            <span th:text="${cookies.cookie}"
+                                                  class="first">(3.45)</span>
+                                        </span>
                                     </span>
                                 </a>
                             </td>
-                            <td class="text-secondary text-right"><th:block th:text="${cookies.cookie.edate}">" Update 날짜 적기 "</th:block></td>
+                            <td class="text-secondary text-right">2016-09-16</td>
                         </tr>
                         <tr>
                             <td colspan="4">
@@ -52,7 +56,7 @@
                         <tr>
                             <td colspan="4">
                                 <th:block th:each="tag : ${cookies.tags}">
-                                    <a class="mr-1" href="javascript:;">#[[${tag.tagName}]]</a>
+                                    <a class="mr-1" href="javascript:;" style="color: #007bff">#[[${tag.tagName}]]</a>
                                 </th:block>
                             </td>
                         </tr>
