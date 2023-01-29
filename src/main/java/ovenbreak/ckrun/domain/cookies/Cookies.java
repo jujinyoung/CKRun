@@ -20,6 +20,6 @@ public class Cookies {
     private int startHealth;
     private int endHealth;
     private LocalDate rdate;
-    private int grade;
+    private float grade;
     private int comment;
 }
