@@ -47,6 +47,12 @@
 
     <select id="findCookiesByID" resultType="Cookies">
         SELECT * FROM ck_cookies
-        WHERE ckID = ${ckID}
+        WHERE ckID = #{ckID}
     </select>
+
+    <update id="addComment">
+        UPDATE ck_cookies
+        SET "comment" = "comment"+1, grade = #{aveGrade}
+        WHERE ckID = #{ckID}
+    </update>
 </mapper>

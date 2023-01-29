@@ -4,18 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ovenbreak.ckrun.com.paging.PageBlock;
 import ovenbreak.ckrun.com.paging.PageService;
 import ovenbreak.ckrun.config.auth.dto.SessionUser;
-import ovenbreak.ckrun.domain.cookies.Cookies;
+import ovenbreak.ckrun.domain.cookies.CookiesComment;
 import ovenbreak.ckrun.service.cookies.CookiesService;
 import ovenbreak.ckrun.service.cookies.dto.CookiesInfo;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -33,24 +30,17 @@ public class CookiesController {
                        @RequestParam(defaultValue = "10") int numberPerPage,
                        @RequestParam(defaultValue = "") String searchWord){
         //세션 처리
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-
-        if (user!=null){
-            log.debug("user={}", user.getName());
-            model.addAttribute("userName", user.getName());
-        }
+        loginCheck(model);
 
         //서비스
         List<CookiesInfo> cookiesInfoList = null;
         int totalCookies;
         log.debug(searchWord);
-        if (searchWord.equals("")){
+        if (searchWord.isEmpty()){
             cookiesInfoList = cookiesService.getCookies(currentPage, numberPerPage);
             totalCookies = cookiesService.getTotalCookies();
         }else{
-            String type = searchWord.substring(0, 1);
-            log.debug("type = {}", type);
-            if (type.equals("#")){
+            if (searchWord.charAt(0) == '#'){
                 String word = searchWord.substring(1);
                 cookiesInfoList = cookiesService.getCookiesByTagName(currentPage, numberPerPage, word);
                 totalCookies = cookiesService.getTotalCookiesByTagName(word);
@@ -71,5 +61,40 @@ public class CookiesController {
         model.addAttribute("searchWord", searchWord);
 
         return "cookies/list";
+    }
+
+    private SessionUser loginCheck(Model model) {
+        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        if (user != null){
+            log.debug("user={}", user.getName());
+            model.addAttribute("userName", user.getName());
+            return user;
+        }
+
+        return null;
+    }
+
+    @GetMapping("/{ckID}")
+    public String cookie(@PathVariable("ckID") int ckID,
+                         Model model){
+        List<CookiesInfo> cookiesInfo = cookiesService.getCookie(ckID);
+        List<CookiesComment> comments = cookiesService.getComments(ckID);
+        List<CookiesComment> bestComments = cookiesService.getBestComments(ckID);
+
+        model.addAttribute("cookiesInfo", cookiesInfo);
+        model.addAttribute("comments", comments);
+        model.addAttribute("bestComments", bestComments);
+        return "cookies/cookie";
+    }
+
+    @PostMapping("/{ckID}")
+    public String cookieComment(@PathVariable("ckID") int ckID,
+                                Model model,
+                                @RequestParam String comment,
+                                @RequestParam int grade){
+        SessionUser user = loginCheck(model);
+        cookiesService.writeComment(ckID, user, grade, comment);
+        return "redirect:{ckID}";
     }
 }

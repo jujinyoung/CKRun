@@ -20,4 +20,6 @@ public interface CookiesMapper {
     Integer getSearchRecords(String searchWord);
 
     Cookies findCookiesByID(int ckID);
+
+    Integer addComment(@Param("ckID") int ckID, @Param("aveGrade") double aveGrade);
 }

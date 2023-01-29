@@ -6,9 +6,6 @@
     <link rel="shortcut icon" th:href="@{/img/fabicon.png}" href="../../static/img/fabicon.png" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css" type="text/css">
     <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <style>
-
-    </style>
 </head>
 <body>
 
@@ -59,7 +56,7 @@
                                 </div>
                             </td>
                             <td colspan="3" class="text-left font-weight-bold name-info">
-                                <a href="javascript:;">
+                                <a th:href="@{/cookies/} + ${cookies.cookie.ckID}">
                                     <span class="name-wrapper">
                                         <span th:text="${cookies.cookie.name}" th:classappend="level-+${cookies.cookie.rankLevel}"
                                               class="name">탐험가맛 쿠키</span>

@@ -3,9 +3,13 @@ package ovenbreak.ckrun.service.cookies;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import ovenbreak.ckrun.com.paging.PageService;
+import ovenbreak.ckrun.config.auth.dto.SessionUser;
 import ovenbreak.ckrun.domain.cookies.Cookies;
+import ovenbreak.ckrun.domain.cookies.CookiesComment;
 import ovenbreak.ckrun.domain.cookies.CookiesTag;
+import ovenbreak.ckrun.repository.cookies.CookiesCommentMapper;
 import ovenbreak.ckrun.repository.cookies.CookiesMapper;
 import ovenbreak.ckrun.repository.cookies.CookiesTagMapper;
 import ovenbreak.ckrun.service.cookies.dto.CookiesInfo;
@@ -20,6 +24,7 @@ public class CookiesServiceImpl implements CookiesService{
 
     private final CookiesMapper cookiesMapper;
     private final CookiesTagMapper cookiesTagMapper;
+    private final CookiesCommentMapper cookiesCommentMapper;
     @Override
     public List<CookiesInfo> getCookies() {
         List<Cookies> allCookies = cookiesMapper.findAllCookies();
@@ -83,6 +88,33 @@ public class CookiesServiceImpl implements CookiesService{
     @Override
     public int getTotalCookiesByTagName(String searchWord) {
         return cookiesTagMapper.getTotalRecords(searchWord);
+    }
+
+    @Override
+    public List<CookiesInfo> getCookie(int ckID) {
+
+        List<Cookies> list = new ArrayList<>();
+        list.add(cookiesMapper.findCookiesByID(ckID));
+
+        return getCookiesInfos(list);
+    }
+
+    @Override
+    public List<CookiesComment> getComments(int ckID) {
+        return cookiesCommentMapper.findAllCommentsByCkID(ckID);
+    }
+
+    @Override
+    public List<CookiesComment> getBestComments(int ckID) {
+        return cookiesCommentMapper.findBestCommentsByCKID(ckID);
+    }
+
+    @Override
+    @Transactional
+    public void writeComment(int ckID, SessionUser user, int grade, String content) {
+        cookiesCommentMapper.insert(ckID, user.getEmail(), user.getName(), grade, content);
+        Double aveGrade = cookiesCommentMapper.selectAverageGrade(ckID);
+        cookiesMapper.addComment(ckID, aveGrade);
     }
 
 
