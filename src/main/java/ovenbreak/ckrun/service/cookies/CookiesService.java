@@ -30,5 +30,5 @@ public interface CookiesService {
 
     void writeComment(int ckID, SessionUser user, int grade, String content);
 
-
+    int updateRecommend(int commentID);
 }

@@ -33,4 +33,16 @@
         FROM ck_comment
         WHERE ckID = #{ckID}
     </select>
+
+    <update id="updateRecommend">
+        UPDATE ck_comment
+        SET recommend = recommend+1
+        WHERE commentID = #{commentID}
+    </update>
+
+    <select id="findRecommendByID" resultType="int">
+        SELECT recommend
+        FROM ck_comment
+        WHERE commentID = #{commentID}
+    </select>
 </mapper>

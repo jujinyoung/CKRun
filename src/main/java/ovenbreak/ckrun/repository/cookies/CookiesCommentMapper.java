@@ -17,4 +17,8 @@ public interface CookiesCommentMapper {
             ,@Param("grade") int grade , @Param("content") String content);
 
     Double selectAverageGrade(int ckID);
+
+    void updateRecommend(int commentID);
+
+    int findRecommendByID(int commentID);
 }

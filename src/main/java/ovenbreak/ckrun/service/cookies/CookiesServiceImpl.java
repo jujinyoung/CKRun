@@ -117,5 +117,11 @@ public class CookiesServiceImpl implements CookiesService{
         cookiesMapper.addComment(ckID, aveGrade);
     }
 
+    @Override
+    public int updateRecommend(int commentID) {
+        cookiesCommentMapper.updateRecommend(commentID);
+        return cookiesCommentMapper.findRecommendByID(commentID);
+    }
+
 
 }

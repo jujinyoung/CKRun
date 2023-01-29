@@ -96,7 +96,7 @@
                       <td class="p-2" colspan="3">
                         <div>
                           <a class="text-dark font-weight-bold" href="javascript:;">[[${best.nickname}]]</a>
-                          <img th:src="|@{/img/stars}${comment.grade}.svg|" src="../../static/img/stars5.svg">
+                          <img th:src="|@{/img/stars}${best.grade}.svg|" src="../../static/img/stars5.svg">
                           <span class="mx-1 text-secondary">|</span>
                           <span class="text-success" th:text="${best.rdate}">날짜 입력해야함</span>
                         </div>
@@ -104,7 +104,7 @@
                           [[${best.content}]]
                         </div>
                         <div class="mt-2">
-                          <a href="javascript:;" class="btn btn-sm text-danger p-0">
+                          <a th:id="recommend" th:value="${best.commentID}" href="javascript:;" class="btn btn-sm text-danger p-0">
                             추천
                             <span th:text="${best.recommend}">0</span>
                           </a>
@@ -129,7 +129,8 @@
                         [[${comment.content}]]
                       </div>
                       <div class="mt-2">
-                        <a href="javascript:;" class="btn btn-sm text-danger p-0">
+                        <a href="javascript:;" class="btn btn-sm text-danger p-0"
+                           th:commentID="${comment.commentID}" th:onclick="clickRecommend(this.getAttribute('commentID'))">
                           추천
                           <span th:text="${comment.recommend}">0</span>
                         </a>
@@ -199,6 +200,22 @@
     $(this).nextAll().removeClass('on');
     $('form#writeForm input[name=grade]').val($(this).attr('data-avg'));
   });
+</script>
+<script th:inline="javascript">
+  function clickRecommend(commentID){
+    $.ajax({
+      url:"/ajax/updateRecommend/"+commentID ,
+      dataType:"text" ,
+      type:"POST" ,
+      cache:false
+    }).done(function (result){
+      var a = $('a[commentid='+commentID+']');
+      a.children('span').remove();
+      a.append('<span>'+result+'</span>');
+    }).fail(function (jqXHR){
+      console.log(jqXHR);
+    })
+  }
 </script>
 </body>
 </html>
