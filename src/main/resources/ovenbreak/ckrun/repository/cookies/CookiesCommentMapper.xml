@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ovenbreak.ckrun.repository.cookies.CookiesCommentMapper">
+
+    <select id="findAllCommentsByCkID" resultType="CookiesComment">
+        SELECT * FROM ck_comment
+        WHERE ckID = #{ckID}
+        ORDER BY ref desc, step asc
+    </select>
+
+    <select id="findBestCommentsByCKID" resultType="CookiesComment">
+        SELECT b.*
+        FROM (
+                 SELECT ROWNUM no, t.*
+                 FROM(
+                     SELECT * FROM ck_comment
+                     WHERE ckID=#{ckID}
+                     ORDER BY recommend DESC
+                     )t
+             )b
+        WHERE b.no BETWEEN 1 and 3
+    </select>
+
+    <insert id="insert">
+        INSERT INTO ck_comment
+        VALUES (ck_comment_seq.nextval, #{ckID}, #{email}, #{nickname}, #{grade}, sysdate, #{content}, 0, ck_comment_seq.currval, 1, 0)
+    </insert>
+
+    <select id="selectAverageGrade" resultType="DOUBLE">
+        SELECT NVL(ROUND(SUM(grade)/COUNT(grade), 2),0)
+        FROM ck_comment
+        WHERE ckID = #{ckID}
+    </select>
+
+    <update id="updateRecommend">
+        UPDATE ck_comment
+        SET recommend = recommend+1
+        WHERE commentID = #{commentID}
+    </update>
+
+    <select id="findRecommendByID" resultType="int">
+        SELECT recommend
+        FROM ck_comment
+        WHERE commentID = #{commentID}
+    </select>
+</mapper>

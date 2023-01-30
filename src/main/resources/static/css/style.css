@@ -118,3 +118,18 @@ address { font-style: inherit; }
     margin-top: -10px;
     background: url(../img/google.png) no-repeat center;
 }
+
+.grade-box button.star {
+    display: inline-block;
+    position: relative;
+    text-indent: -9999px;
+    width: 31px;
+    height: 29px;
+    background: url(../img/ico_star_gray.svg) no-repeat center center;
+    background-size: 100% auto;
+}
+
+.grade-box button.star.on {
+    background: url(../img/ico_star_black.svg) no-repeat center center;
+    background-size: 100% auto;
+}

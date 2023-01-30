@@ -5,6 +5,7 @@
     <title>CKRUN</title>
     <link rel="shortcut icon" th:href="@{/img/fabicon.png}" href="../../static/img/fabicon.png" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css" type="text/css">
+    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -12,33 +13,65 @@
 
 <div align="center" style=" height: auto !important;">
     <div style="min-width: 735px; overflow: hidden; height: auto !important;">
+        <div class="mt-4" align="left" style="width: 1130px">
+            <div class="float-left" style="width: 240px; padding-top: 2px;">
+                <a class="text-decoration-none" th:href="@{/cookies}" href="list.html">
+                    <img th:src="@{/img/ovenbreak.png}" src="../../static/img/ovenbreak.png">
+                </a>
+            </div>
+            <div class="float-left" style="margin-top: 5px;">
+                <form class="form-inline" th:action>
+                    <div class="input-group">
+                        <input class="form-control border-primary font-weight-bold" type="search" maxlength="30" name="searchWord" value=""
+                        th:value="${searchWord}" style="border-width: 2px;width:500px;height:50px;font-size: 1.1rem" >
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn" type="submit">
+                                <img th:src="@{/img/search2.png}" src="../../static/img/search2.png">
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="clearfix"></div>
         <div class="row mt-4 mb-5 pl-0 container" style="min-width:1130px;">
-            <div class="col-8 pl-3 pr-2">
+            <div class="col-8 pl-3 pr-2" style="margin-top: 5px">
+                <div class="text-left ml-1 mb-4">
+                    <span class="mr-2">
+                        <span class="font-weight-bold">전체</span>
+                        <span class="font-weight-bold ml-2"><span>/</span> 총 [[${totalCookies}]]개</span>
+                    </span>
+                </div>
                 <div class="character-info" th:each="cookies : ${cookiesInfoList}">
                     <table class="table table-sm table-borderless">
                         <tbody>
                         <tr>
                             <td class="align-top thumb-wrapper" rowspan="5">
                                 <img th:src="@{/img/cookies/} + ${cookies.cookie.ckImage}" th:alt="${cookies.cookie.name}"
-                                     src="../../static/img/cookies/adventurer.png" width="105" height="105" alt="탐험가맛 쿠키">
+                                     src="../../static/img/cookies/GingerBrave.png" width="105" height="105" alt="탐험가맛 쿠키">
                                 <div class="text-center damage-wrapper mt-1" style="width: 105px">
-                                    <span th:text="${cookies.cookie.name}">탐험가맛쿠키</span>
+                                    <span th:text="${cookies.cookie.startHealth}">200</span>
+                                    -
+                                    <span th:text="${cookies.cookie.endHealth}">300</span>
                                 </div>
                             </td>
                             <td colspan="3" class="text-left font-weight-bold name-info">
-                                <a href="javascript:;">
+                                <a th:href="@{/cookies/} + ${cookies.cookie.ckID}">
                                     <span class="name-wrapper">
-                                        <span th:text="${cookies.cookie.name}"
-                                              class="name level-4">탐험가맛 쿠키</span>
+                                        <span th:text="${cookies.cookie.name}" th:classappend="level-+${cookies.cookie.rankLevel}"
+                                              class="name">탐험가맛 쿠키</span>
                                         <span class="dash"> - </span>
-                                        <span class="level level-4">
+                                        <span class="level" th:classappend="level-+${cookies.cookie.rankLevel}">
                                             <span th:text="${cookies.cookie.rank}"
                                                   class="first">EPIC</span>
+                                        </span>
+                                        <span class="level level-comment">
+                                            <span class="first">( [[${cookies.cookie.grade}]] )</span>
                                         </span>
                                     </span>
                                 </a>
                             </td>
-                            <td class="text-secondary text-right"><th:block th:text="${cookies.cookie.edate}">" Update 날짜 적기 "</th:block></td>
+                            <td class="text-secondary text-right">[[${cookies.cookie.rdate}]] 출시</td>
                         </tr>
                         <tr>
                             <td colspan="4">
@@ -52,13 +85,49 @@
                         <tr>
                             <td colspan="4">
                                 <th:block th:each="tag : ${cookies.tags}">
-                                    <a class="mr-1" href="javascript:;">#[[${tag.tagName}]]</a>
+                                    <a class="mr-1" th:href="@{/cookies(searchWord=|#${tag.tagName}|)}" style="color: #007bff">#[[${tag.tagName}]]</a>
                                 </th:block>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                     <hr>
+                </div>
+<!--                페이징처리-->
+                <div class="my-5">
+                    <ul class="pagination" role="navigation">
+
+                        <li class="page-item" th:if="${pageBlock.isPrev}">
+                            <a class="page-link" th:href="@{/cookies(currentPage=${pageBlock.startOfPageBlock-1},
+                            numberPerPage=${pageBlock.numberPerPage}, searchWord=${searchWord})}">&lsaquo;</a>
+                        </li>
+                        <th:block th:each="num : ${#numbers.sequence(pageBlock.startOfPageBlock,pageBlock.endOfPageBlock)}">
+                            <li th:if="${num eq pageBlock.currentPage}" class="page-item active">
+                                <span class="page-link">[[${num}]]</span>
+                            </li>
+                            <li th:unless="${num eq pageBlock.currentPage}" class="page-item">
+                                <a class="page-link" th:href="@{/cookies(currentPage=${num},
+                                numberPerPage=${pageBlock.numberPerPage}, searchWord=${searchWord})}">[[${num}]]</a>
+                            </li>
+                        </th:block>
+
+                        <li class="page-item" th:if="${pageBlock.isNext}">
+                            <a class="page-link" th:href="@{/cookies(currentPage=${pageBlock.endOfPageBlock+1},
+                            numberPerPage=${pageBlock.numberPerPage}, searchWord=${searchWord})}">&rsaquo;</a>
+                        </li>
+                    </ul>
+
+                    <div>
+                        <form id="pageSizeSearchForm" th:action>
+                            <input type="hidden" th:name="searchWord" th:value="${searchWord}">
+                            <select id="pageSizeSelect" name="numberPerPage" class="custom-select custom-select-sm" style="width: 75px;">
+                                <option value="10" th:selected="${pageBlock.numberPerPage} eq 10">10</option>
+                                <option value="30" th:selected="${pageBlock.numberPerPage} eq 30">30</option>
+                                <option value="50" th:selected="${pageBlock.numberPerPage} eq 50">50</option>
+                            </select>
+                            <span class="d-inline">개씩 보기</span>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,5 +136,12 @@
 
 <div th:replace="~{fragment/footer :: footer}"></div>
 
+<script>
+    $('#pageSizeSelect').on('change', function (){
+        // alert('체크');
+        $('#pageSizeSelect').val($(this).val());
+        $('#pageSizeSearchForm').submit();
+    });
+</script>
 </body>
 </html>

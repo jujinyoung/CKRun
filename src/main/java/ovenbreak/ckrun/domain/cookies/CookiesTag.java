@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class CookiesTag {
 
-    private long id;
-    private String name;
+    private int tagID;
+    private int ckID;
     private String tagName;
 }

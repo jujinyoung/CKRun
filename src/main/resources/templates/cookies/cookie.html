@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>CKRUN</title>
+  <link rel="shortcut icon" th:href="@{/img/fabicon.png}" href="../../static/img/fabicon.png" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div th:replace="~{fragment/header :: header}"></div>
+
+<div align="center" style=" height: auto !important;">
+  <div style="min-width: 735px; overflow: hidden; height: auto !important;">
+    <div class="mt-4" align="left" style="width: 1130px">
+      <div class="float-left" style="width: 240px; padding-top: 2px;">
+        <a class="text-decoration-none" th:href="@{/cookies}" href="list.html">
+          <img th:src="@{/img/ovenbreak.png}" src="../../static/img/ovenbreak.png">
+        </a>
+      </div>
+      <div class="float-left" style="margin-top: 5px;">
+        <form class="form-inline" th:action="@{/cookies}">
+          <div class="input-group">
+            <input class="form-control border-primary font-weight-bold" type="search" maxlength="30" name="searchWord" value=""
+                   th:value="${searchWord}" style="border-width: 2px;width:500px;height:50px;font-size: 1.1rem" >
+            <div class="input-group-append">
+              <button class="btn btn-primary btn" type="submit">
+                <img th:src="@{/img/search2.png}" src="../../static/img/search2.png">
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row mt-4 mb-5 pl-0 container" style="min-width:1130px;">
+      <div class="col-8 pl-3 pr-2" style="margin-top: 5px">
+        <div class="character-info" th:each="cookies : ${cookiesInfo}">
+          <table class="table table-sm table-borderless">
+            <tbody>
+            <tr>
+              <td class="align-top thumb-wrapper" rowspan="5">
+                <img th:src="@{/img/cookies/} + ${cookies.cookie.ckImage}" th:alt="${cookies.cookie.name}"
+                     src="../../static/img/cookies/GingerBrave.png" width="105" height="105" alt="탐험가맛 쿠키">
+                <div class="text-center damage-wrapper mt-1" style="width: 105px">
+                  <span th:text="${cookies.cookie.startHealth}">200</span>
+                  -
+                  <span th:text="${cookies.cookie.endHealth}">300</span>
+                </div>
+              </td>
+              <td colspan="3" class="text-left font-weight-bold name-info">
+                <a href="javascript:;">
+                    <span class="name-wrapper">
+                        <span th:text="${cookies.cookie.name}" th:classappend="level-+${cookies.cookie.rankLevel}"
+                              class="name">탐험가맛 쿠키</span>
+                        <span class="dash"> - </span>
+                        <span class="level" th:classappend="level-+${cookies.cookie.rankLevel}">
+                            <span th:text="${cookies.cookie.rank}"
+                                  class="first">EPIC</span>
+                        </span>
+                        <span class="level level-comment">
+                            <span class="first">( [[${cookies.cookie.grade}]] )</span>
+                        </span>
+                    </span>
+                </a>
+              </td>
+              <td class="text-secondary text-right">[[${cookies.cookie.rdate}]] 출시</td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <th:block th:text="${cookies.cookie.skill}">
+                  일정시간마다 유적을 발견한다. 유적 안에서 밧줄 젤리를 먹으면 로프 액션을 한다. 로프액션을 하는 동안 강한
+                  자력이 발생하며, 보석 젤리를 획들할 수 있다. 레벨업할수록 보석 젤리 점수가 증가한다.(유적 안에서는 3단
+                  점프를 할 수 있다.)
+                </th:block>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                <th:block th:each="tag : ${cookies.tags}">
+                  <a class="mr-1" th:href="@{/cookies(searchWord=|#${tag.tagName}|)}" style="color: #007bff">#[[${tag.tagName}]]</a>
+                </th:block>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <hr>
+          <div class="my-2 comment-collapse-area collapse show">
+            <div>
+              <div style="border: 2px #ef572e solid;">
+                <div class="text-left p-2 text-white font-weight-bold" style="background-color: #ef572e">추천수 TOP 3</div>
+                <table class="table table-striped table-borderless m=0">
+                  <tbody>
+                    <tr th:each="best : ${bestComments}">
+                      <td class="p-2" colspan="3">
+                        <div>
+                          <a class="text-dark font-weight-bold" href="javascript:;">[[${best.nickname}]]</a>
+                          <img th:src="|@{/img/stars}${best.grade}.svg|" src="../../static/img/stars5.svg">
+                          <span class="mx-1 text-secondary">|</span>
+                          <span class="text-success" th:text="${best.rdate}">날짜 입력해야함</span>
+                        </div>
+                        <div class="mt-2 text-break">
+                          [[${best.content}]]
+                        </div>
+                        <div class="mt-2">
+                          <a th:id="recommend" th:value="${best.commentID}" href="javascript:;" class="btn btn-sm text-danger p-0">
+                            추천
+                            <span th:text="${best.recommend}">0</span>
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr>
+              <table class="table table-sm table-striped">
+                <tbody>
+                  <tr th:each="comment : ${comments}">
+                    <td class="p-2" colspan="3">
+                      <div>
+                        <a class="text-dark font-weight-bold" href="javascript:;">[[${comment.nickname}]]</a>
+                        <img th:src="|@{/img/stars}${comment.grade}.svg|" src="../../static/img/stars5.svg">
+                        <span class="mx-1 text-secondary">|</span>
+                        <span class="text-success" th:text="${comment.rdate}">날짜 입력해야함</span>
+                      </div>
+                      <div class="mt-2 text-break">
+                        [[${comment.content}]]
+                      </div>
+                      <div class="mt-2">
+                        <a href="javascript:;" class="btn btn-sm text-danger p-0"
+                           th:commentID="${comment.commentID}" th:onclick="clickRecommend(this.getAttribute('commentID'))">
+                          추천
+                          <span th:text="${comment.recommend}">0</span>
+                        </a>
+                        <a href="javascript:;" class="btn btn-sm text-info p-0 ml-2">답글</a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-center mb-3">
+              <form id="writeForm" th:action th:method="post">
+                <input type="hidden" name="grade" value="5">
+                <textarea rows="4" class="w-100" name="comment" th:placeholder="|[${cookies.cookie.name}]에 대한 의견을 적어주세요|" style="border: 1px #c9c9c9 solid; border-radius: 3px"></textarea>
+                <div class="text-right mt-1">
+                  <div class="text-center grade-box">
+                    <button type="button" data-avg="1" class="star on">평점1</button>
+                    <button type="button" data-avg="2" class="star on">평점2</button>
+                    <button type="button" data-avg="3" class="star on">평점3</button>
+                    <button type="button" data-avg="4" class="star on">평점4</button>
+                    <button type="button" data-avg="5" class="star on">평점5</button>
+                  </div>
+                  <button class="btn btn-info btn-block mt-1">등록</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="replyModal" class="modal fade" tabindex="-1" style="display: none">
+      <div class="modal-dialog modal-1g">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">답글달기</h5>
+            <button type="button" class="close">
+              <span>x</span>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body">
+              <div class="text-left p-2" style="background-color: lightgrey">해당 글 내용</div>
+              <textarea class="form-control mt-3" name="comment" rows="5"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary">취소</button>
+              <button class="btn btn-primary">답글달기</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragment/footer :: footer}"></div>
+
+<script>
+  $('').on('click', function (){
+
+  });
+
+  //평점
+  $(document).on('click', '.grade-box button', function (){
+    $(this).prevAll().addClass('on');
+    $(this).addClass('on');
+    $(this).nextAll().removeClass('on');
+    $('form#writeForm input[name=grade]').val($(this).attr('data-avg'));
+  });
+</script>
+<script th:inline="javascript">
+  function clickRecommend(commentID){
+    $.ajax({
+      url:"/ajax/updateRecommend/"+commentID ,
+      dataType:"text" ,
+      type:"POST" ,
+      cache:false
+    }).done(function (result){
+      var a = $('a[commentid='+commentID+']');
+      a.children('span').remove();
+      a.append('<span>'+result+'</span>');
+    }).fail(function (jqXHR){
+      console.log(jqXHR);
+    })
+  }
+</script>
+</body>
+</html>

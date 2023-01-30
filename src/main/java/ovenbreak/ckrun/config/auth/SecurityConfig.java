@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                        "/test/**")
                .permitAll()
                .antMatchers("/member").permitAll()
+               .antMatchers("/cookies").permitAll()
                .antMatchers("/mytravel/**").hasRole(Role.GUEST.name()) // 인증 url 패턴
 //               .anyRequest().authenticated()
                .and()

@@ -3,8 +3,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ovenbreak.ckrun.repository.cookies.CookiesTagMapper">
-    <select id="findByName" resultType="CookiesTag">
+    <select id="findByID" resultType="CookiesTag">
         SELECT * FROM ck_cktag
-        WHERE name = #{name}
+        WHERE ckID = #{ckID}
+    </select>
+
+    <select id="findByTagName" resultType="CookiesTag">
+        SELECT b.tagID, b.ckID, b.tagName
+        FROM(
+                SELECT ROWNUM no, t.tagID, t.ckID, t.tagName
+                FROM(
+                    SELECT * FROM ck_cktag
+                    WHERE tagName = #{tagName}
+                    ORDER BY tagID DESC
+                    )t
+            )b
+        WHERE b.no BETWEEN #{begin} and #{end}
+    </select>
+
+    <select id="getTotalRecords" resultType="Integer">
+        SELECT COUNT(*) FROM ck_cktag
+        WHERE tagName = #{tagName}
     </select>
 </mapper>

@@ -6,4 +6,53 @@
     <select id="findAllCookies" resultType="Cookies">
         SELECT * FROM ck_cookies
     </select>
+
+    <select id="selectCookiesList" resultType="Cookies">
+        SELECT b.ckid, b.name, b.rank, b.skill, b.ckimage, b.ranklevel,
+               b.startHealth, b.endHealth, b.rdate, b.grade, b."comment"
+        FROM(
+                SELECT ROWNUM no, t.ckid, t.name, t.rank, t.skill, t.ckimage,
+                    t.ranklevel, t.startHealth, t.endHealth, t.rdate, t.grade, t."comment"
+                FROM(
+                    SELECT * FROM ck_cookies
+                    ORDER BY rdate DESC
+                    ) t
+            )b
+        WHERE b.no BETWEEN #{begin} and #{end}
+    </select>
+
+    <select id="searchCookiesList" resultType="Cookies">
+        SELECT b.ckid, b.name, b.rank, b.skill, b.ckimage, b.ranklevel,
+               b.startHealth, b.endHealth, b.rdate, b.grade, b."comment"
+        FROM(
+                SELECT ROWNUM no, t.ckid, t.name, t.rank, t.skill, t.ckimage,
+                    t.ranklevel, t.startHealth, t.endHealth, t.rdate, t.grade, t."comment"
+                FROM(
+                    SELECT * FROM ck_cookies
+                    WHERE REGEXP_LIKE(name, #{searchWord}, 'i')
+                    ORDER BY rdate DESC
+                    ) t
+            )b
+        WHERE b.no BETWEEN #{begin} and #{end}
+    </select>
+
+    <select id="getTotalRecords" resultType="Integer">
+        SELECT COUNT(*) FROM ck_cookies
+    </select>
+
+    <select id="getSearchRecords" resultType="Integer">
+        SELECT COUNT(*) FROM ck_cookies
+        WHERE REGEXP_LIKE(name, '${searchWord}', 'i')
+    </select>
+
+    <select id="findCookiesByID" resultType="Cookies">
+        SELECT * FROM ck_cookies
+        WHERE ckID = #{ckID}
+    </select>
+
+    <update id="addComment">
+        UPDATE ck_cookies
+        SET "comment" = "comment"+1, grade = #{aveGrade}
+        WHERE ckID = #{ckID}
+    </update>
 </mapper>
